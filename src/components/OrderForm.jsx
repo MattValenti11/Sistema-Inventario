@@ -1,38 +1,43 @@
 // src/components/OrderForm.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/OrderForm.css';
 
-const OrderForm = ({ onAddOrder }) => {
-  const [form, setForm] = useState({ product: '', quantity: '' });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
+const OrderForm = ({ product, setProduct, quantity, setQuantity, addOrder, editingIndex }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.product.trim() || !form.quantity.trim()) return;
-    onAddOrder(form);
-    setForm({ product: '', quantity: '' });
+    addOrder();
   };
 
   return (
     <form className="order-form" onSubmit={handleSubmit}>
-      <input
-        name="product"
-        placeholder="Producto"
-        value={form.product}
-        onChange={handleChange}
-      />
-      <label htmlFor="quantity">Cantidad</label>
-      <input
-        name="quantity"
-        type="number"
-        placeholder="Cantidad"
-        value={form.quantity}
-        onChange={handleChange}
-      />
-      <button type="submit">Agregar Pedido</button>
+      <div className="form-group">
+        <label htmlFor="product">Producto</label>
+        <input
+          id="product"
+          type="text"
+          value={product}
+          onChange={(e) => setProduct(e.target.value)}
+          placeholder="Nombre del producto"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="quantity">Cantidad</label>
+        <input
+          id="quantity"
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          placeholder="Cantidad"
+          required
+          min="1"
+        />
+      </div>
+
+      <button type="submit" className="order-button">
+        {editingIndex !== null ? 'Actualizar Pedido' : 'Agregar Pedido'}
+      </button>
     </form>
   );
 };

@@ -5,29 +5,24 @@ import Home from './pages/Home';
 import Inventario from './components/Inventory';
 import Pedidos from './pages/Pedidos';
 import Clientes from './pages/Clientes';
-import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/App.css';
 
 function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
+      <div className="app-container">
         <Sidebar />
-        <div style={{ padding: '20px', flex: 1 }}>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/inventario" element={<Inventario />} />xº
+            <Route path="/inventario" element={<Inventario />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/clientes" element={<Clientes />} />
           </Routes>
-          <div style={{ 
-            padding: '30px', 
-            flex: 1, 
-            backgroundColor: '#f4f6f8',
-            minHeight: '100vh' 
-          }}></div>
-             <ToastContainer position="top-center" autoClose={2000} />
-        </div>
+          <ToastContainer />
+        </main>
       </div>
     </Router>
   );

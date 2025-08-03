@@ -1,37 +1,47 @@
-.toast-confirm-container {
-  font-size: 14px;
-  color: #1f2937;
+.pedidos-container {
+  padding: 1.5rem 2rem;
 }
 
-.toast-confirm-buttons {
-  margin-top: 10px;
+.pedidos-filtros {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.toast-confirm-eliminar {
-  background-color: #dc2626;
-  color: white;
+.pedidos-filtros input {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background-color: white;
+}
+
+.filtros-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.filtros-btns button {
+  background-color: #e5e7eb;
+  color: #374151;
   border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.toast-confirm-eliminar:hover {
-  background-color: #b91c1c;
+.filtros-btns button:hover {
+  background-color: #d1d5db;
 }
 
-.toast-confirm-cancelar {
-  background-color: #6b7280;
+.filtros-btns button.activo {
+  background-color: #2563eb;
   color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.toast-confirm-cancelar:hover {
-  background-color: #4b5563;
 }

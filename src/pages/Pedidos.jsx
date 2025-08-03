@@ -1,11 +1,9 @@
 // src/pages/Pedidos.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../styles/Pedidos.css';
 import OrderForm from '../components/OrderForm';
 import OrderTable from '../components/OrderTable';
-import { toast, Slide } from 'react-toastify';
-import '../styles/Pedidos.css';
 import PedidosExport from '../components/PedidosExport';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Pedidos = () => {
   const [orders, setOrders] = useState(() => {
@@ -17,106 +15,77 @@ const Pedidos = () => {
     }
   });
 
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [filterText, setFilterText] = useState('');
+  const [filterStatus, setFilterStatus] = useState('todos');
+
   useEffect(() => {
     localStorage.setItem('pedidos', JSON.stringify(orders));
   }, [orders]);
 
-  const addOrder = (newOrder) => {
-    const today = new Date().toISOString().split('T')[0];
-    setOrders([...orders, {
-      ...newOrder,
-      date: today,
-      status: 'pendiente',
-      procesado: false
-    }]);
-    toast.success(`Pedido de "${newOrder.product}" agregado`);
+  const addOrder = (order) => {
+    setOrders([...orders, order]);
+  };
+
+  const updateOrder = (updatedOrder) => {
+    const nuevos = [...orders];
+    nuevos[editingIndex] = updatedOrder;
+    setOrders(nuevos);
+    setEditingIndex(null);
   };
 
   const deleteOrder = (index) => {
-    const id = toast(
-      ({ closeToast }) => (
-        <div className="toast-confirm-container">
-          <strong>¿Eliminar este pedido?</strong>
-          <div className="toast-confirm-buttons">
-            <button
-              className="toast-confirm-eliminar"
-              onClick={() => {
-                const updated = [...orders];
-                updated.splice(index, 1);
-                setOrders(updated);
-                toast.dismiss(id);
-                toast.warn('Pedido eliminado');
-              }}
-            >
-              Sí, eliminar
-            </button>
-            <button
-              className="toast-confirm-cancelar"
-              onClick={() => toast.dismiss(id)}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        position: 'top-center',
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-        transition: Slide,
-      }
-    );
+    const nuevos = [...orders];
+    nuevos.splice(index, 1);
+    setOrders(nuevos);
   };
 
   const toggleStatus = (index) => {
-    const updated = [...orders];
-    const order = updated[index];
-    const normalizar = (str) => str.trim().toLowerCase();
-    const inventory = JSON.parse(localStorage.getItem('inventario')) || [];
-    const productoExistente = inventory.find(
-      p => normalizar(p.name) === normalizar(order.product)
-    );
-    const cantidad = Number(order.quantity) || 0;
+    const nuevos = [...orders];
+    nuevos[index].status =
+      nuevos[index].status === 'entregado' ? 'pendiente' : 'entregado';
+    setOrders(nuevos);
+  };
 
-    if (order.status === 'pendiente') {
-      if (!order.procesado && productoExistente) {
-        productoExistente.stock += cantidad;
-        order.procesado = true;
-        toast.success(`+${cantidad} al inventario: ${productoExistente.name}`);
-      } else if (!productoExistente) {
-        toast.warning(`⚠ Producto no encontrado: "${order.product}"`);
-      }
-      order.status = 'entregado';
-      toast.info(`📝 Estado cambiado a "entregado"`);
-
-    } else {
-      if (order.procesado && productoExistente) {
-        productoExistente.stock -= cantidad;
-        order.procesado = false;
-        toast.info(`-${cantidad} del inventario: ${productoExistente.name}`);
-      }
-      order.status = 'pendiente';
-      toast.info(`↩ Estado cambiado a "pendiente"`);
-    }
-
-    localStorage.setItem('inventario', JSON.stringify(inventory));
-    setOrders(updated);
-    setTimeout(() => window.location.reload(), 100);
+  const editOrder = (index) => {
+    setEditingIndex(index);
   };
 
   return (
     <div className="pedidos-container">
       <h2>Gestión de Pedidos</h2>
-      <OrderForm onAddOrder={addOrder} />
+      <OrderForm
+        onAdd={addOrder}
+        onUpdate={updateOrder}
+        editingIndex={editingIndex}
+        orderToEdit={orders[editingIndex]}
+      />
+
+      <div className="pedidos-header">
+        <input
+          type="text"
+          placeholder="Buscar por producto o cliente..."
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
+
+        <div className="filtros">
+          <button onClick={() => setFilterStatus('todos')}>Todos</button>
+          <button onClick={() => setFilterStatus('pendiente')}>Pendientes</button>
+          <button onClick={() => setFilterStatus('entregado')}>Entregados</button>
+        </div>
+      </div>
+
       <OrderTable
         orders={orders}
         onDeleteOrder={deleteOrder}
         onToggleStatus={toggleStatus}
+        onEditOrder={editOrder}
+        filterText={filterText}
+        filterStatus={filterStatus}
       />
-      <PedidosExport orders={orders} />
 
+      <PedidosExport orders={orders} />
     </div>
   );
 };

@@ -1,12 +1,17 @@
-/* Si tu sidebar mide 180px */
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+.app-container {
+  display: flex;
 }
 
 .main-content {
-  margin-left: 200px; /* un poco más que la sidebar */
+  margin-left: 200px;
   padding: 2rem;
+  flex: 1;
 }
-    

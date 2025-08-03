@@ -10,6 +10,7 @@ import {
   Legend
 } from 'chart.js';
 import '../styles/Home.css';
+import '../styles/Inventory.css'; // usa mismo contenedor unificado
 
 ChartJS.register(
   BarElement,
@@ -38,7 +39,6 @@ const Home = () => {
   const pedidosEntregados = pedidos.filter(p => p.status === 'entregado').length;
   const pedidosPendientes = pedidos.filter(p => p.status === 'pendiente').length;
 
-  // Gráfico de barras
   const barData = {
     labels: ['Entregados', 'Pendientes'],
     datasets: [
@@ -50,7 +50,6 @@ const Home = () => {
     ]
   };
 
-  // Gráfico de torta
   const doughnutData = {
     labels: ['Stock Bajo (<5)', 'Stock Suficiente'],
     datasets: [
@@ -62,7 +61,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container">
+    <div className="inventory-container">
       <h2>Resumen General</h2>
       <div className="resumen-grid">
         <div className="card total-productos">
