@@ -1,0 +1,61 @@
+.inventory-export {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 10px;
+}
+
+.inventory-export button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #337ab7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.inventory-export button:hover {
+  background-color: #286090;
+}
+
+.export-alert {
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  animation: fadeout 3s forwards;
+}
+
+@keyframes fadeout {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.export-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.export-buttons button {
+  padding: 8px 14px;
+  background-color: #2e86de;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.export-buttons button:hover {
+  background-color: #1b4f72;
+}
+

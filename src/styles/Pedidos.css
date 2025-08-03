@@ -1,0 +1,37 @@
+.toast-confirm-container {
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.toast-confirm-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.toast-confirm-eliminar {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toast-confirm-eliminar:hover {
+  background-color: #b91c1c;
+}
+
+.toast-confirm-cancelar {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toast-confirm-cancelar:hover {
+  background-color: #4b5563;
+}

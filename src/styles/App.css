@@ -1,0 +1,12 @@
+/* Si tu sidebar mide 180px */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-content {
+  margin-left: 200px; /* un poco más que la sidebar */
+  padding: 2rem;
+}
+    

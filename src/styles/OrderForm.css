@@ -1,0 +1,41 @@
+/* src/styles/OrderForm.css */
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.order-form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  background-color: white;
+}
+
+.order-form label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.order-form button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin-top: 6px;
+  transition: background 0.3s ease;
+}
+
+.order-form button:hover {
+  background-color: #1e40af;
+}
